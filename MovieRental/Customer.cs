@@ -35,11 +35,8 @@ namespace MovieRental
                 // Cela élimine le switch complexe et centralise la logique tarifaire.
                 double thisAmount = each.getMovie().GetCharge(each.getDaysRented());
 
-                // add frequent renter points
-                frequentRenterPoints++;
-                // add bonus for a two day new release rental
-                if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1)
-                    frequentRenterPoints++;
+                // Délégation du calcul des points au film pour respecter le principe d'encapsulation.
+                frequentRenterPoints += each.getMovie().GetFrequentRenterPoints(each.getDaysRented());
 
                 // show figures for this rental
                 result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount.ToString() + "\n";

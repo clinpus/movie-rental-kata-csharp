@@ -55,5 +55,15 @@ namespace MovieRental
             return result;
         }
 
+        // Refactoring : Détermine le gain de points de fidélité.
+        // La logique de bonus pour les nouveautés est désormais encapsulée ici.
+        public int GetFrequentRenterPoints(int daysRented)
+        {
+            if ((_priceCode == NEW_RELEASE) && daysRented > 1)
+                return 2;
+
+            return 1;
+        }
+
     }
 }

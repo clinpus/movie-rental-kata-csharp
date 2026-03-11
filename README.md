@@ -7,3 +7,6 @@ C# implementation of the Movie Rental Kata. Focused on SOLID principles, Unit Te
 - **Validation** : La compatibilité descendante a été vérifiée, et tous les tests unitaires passent avec succès sur cette nouvelle cible.
 - [x] Déplacement du calcul du prix (`GetCharge`) dans la classe `Movie` pour respecter le **SRP** (Single Responsibility Principle).
 - [x] Validation par tests unitaires (7/7 OK).
+- [x] **Refactoring des points de fidélité** : Déplacement de la logique `frequentRenterPoints` dans `Movie.GetFrequentRenterPoints`.
+- [x] **Encapsulation** : La classe `Customer` ne contient plus de règles de gestion (Business Rules), elle ne fait plus que coordonner l'affichage.
+- [x] Validation par tests unitaires (7/7 OK).
