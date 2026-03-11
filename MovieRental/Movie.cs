@@ -30,5 +30,30 @@ namespace MovieRental
         {
             return _title;
         }
+
+        // Refactoring : Déplacement de la logique de calcul du prix depuis Customer vers Movie (SRP)
+        // Le montant dépend désormais directement du type de film et de la durée.
+        public double GetCharge(int daysRented)
+        {
+            double result = 0;
+            switch (_priceCode)
+            {
+                case REGULAR:
+                    result += 2;
+                    if (daysRented > 2)
+                        result += (daysRented - 2) * 1.5;
+                    break;
+                case NEW_RELEASE:
+                    result += daysRented * 3;
+                    break;
+                case CHILDRENS:
+                    result += 1.5;
+                    if (daysRented > 3)
+                        result += (daysRented - 3) * 1.5;
+                    break;
+            }
+            return result;
+        }
+
     }
 }
