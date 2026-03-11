@@ -13,3 +13,7 @@ C# implementation of the Movie Rental Kata. Focused on SOLID principles, Unit Te
 - [x] **Extraction des totaux** : Création de `GetTotalCharge` et `GetTotalFrequentRenterPoints` pour supprimer les accumulateurs dans la boucle principale.
 - [x] **Élimination des variables temporaires** : La méthode `Statement` est désormais purement dédiée à l'affichage (Refactoring : Replace Temp with Query).
 - [x] **Design Pattern Strategy** : Suppression totale des switchs de calcul. Chaque type de prix est désormais isolé dans sa propre classe.
+## Validation
+- [x] **Tests Unitaires** : Tous les tests passent avec succès (`dotnet test`).
+- [x] **Optimisation Mémoire** : Utilisation de StringBuilder dans la méthode Statement pour éviter les allocations inutiles de chaînes de caractères lors de la construction du rapport.
+- [x] **Architecture Polymorphe** : Implémentation de l'interface IPrice pour permettre une extension facile du catalogue de prix sans modification de la classe Movie (Open-Closed Principle).
