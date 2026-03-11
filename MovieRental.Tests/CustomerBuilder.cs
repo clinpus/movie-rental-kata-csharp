@@ -8,7 +8,7 @@ namespace MovieRental.Tests
 
         public static readonly String NAME = "Roberts";
 
-    private String name = NAME;
+        private String name = NAME;
         private List<Rental> rentals = new List<Rental>();
 
         public Customer build()
@@ -16,7 +16,7 @@ namespace MovieRental.Tests
             Customer result = new Customer(name);
             foreach (Rental rental in rentals)
             {
-                result.addRental(rental);
+                result.AddRental(rental);
             }
             return result;
         }

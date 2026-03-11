@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace MovieRental
 {
@@ -14,62 +16,57 @@ namespace MovieRental
             _name = name;
         }
 
-        public void addRental(Rental arg)
+        public void AddRental(Rental arg)
         {
             _rentals.Add(arg);
         }
 
-        public string getName()
+        public string Name
         {
-            return _name;
+            get { return _name; }
         }
 
-        public string statement()
+        public string Statement()
         {
-            string result = "Rental Record for " + getName() + "\n";
+            // StringBuilder c'est mieux qu'un string immuable 
+            StringBuilder result = new StringBuilder();
+            result.Append("Rental Record for ").Append(Name).Append("\n");
 
             foreach (Rental each in _rentals)
             {
-                // On garde cette variable locale uniquement pour l'affichage de la ligne
-                double thisAmount = each.getMovie().GetCharge(each.getDaysRented());
+                // Récupérer le montant via la logique métier 
+                double thisAmount = each.Movie.GetCharge(each.DaysRented);
 
-                // show figures for this rental
-                result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount.ToString() + "\n";
+                result.Append("\t")
+                      .Append(each.Movie.Title)
+                      .Append("\t")
+                      .Append(thisAmount.ToString())
+                      .Append("\n");
             }
 
-            // add footer lines - Utilisation des nouvelles méthodes de calcul
-            result += "Amount owed is " + GetTotalCharge().ToString() + "\n";
-            result += "You earned " + GetTotalFrequentRenterPoints().ToString() + " frequent renter points";
+            result.Append("Amount owed is ")
+                  .Append(GetTotalCharge().ToString())
+                  .Append("\n");
 
-            return result;
+            result.Append("You earned ")
+                  .Append(GetTotalFrequentRenterPoints().ToString())
+                  .Append(" frequent renter points");
+
+            return result.ToString();
         }
 
         // Calcule le montant total de toutes les locations du client.
         // Cette méthode permet de supprimer la variable temporaire 'totalAmount' dans Statement.
         private double GetTotalCharge()
         {
-            double result = 0;
-            IEnumerator rentals = _rentals.GetEnumerator();
-            while (rentals.MoveNext())
-            {
-                Rental each = (Rental)rentals.Current;
-                result += each.getMovie().GetCharge(each.getDaysRented());
-            }
-            return result;
+            return _rentals.Sum(r => r.Movie.GetCharge(r.DaysRented));
         }
 
         // Calcule le cumul des points de fidélité pour l'ensemble des locations.
         // Isole la logique de sommation pour simplifier la méthode d'affichage.
         private int GetTotalFrequentRenterPoints()
         {
-            int result = 0;
-            IEnumerator rentals = _rentals.GetEnumerator();
-            while (rentals.MoveNext())
-            {
-                Rental each = (Rental)rentals.Current;
-                result += each.getMovie().GetFrequentRenterPoints(each.getDaysRented());
-            }
-            return result;
+            return _rentals.Sum(r => r.Movie.GetFrequentRenterPoints(r.DaysRented));
         }
 
     }

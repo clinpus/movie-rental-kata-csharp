@@ -1,12 +1,11 @@
 ﻿
-
 namespace MovieRental
 {
     public class ChildrensPrice : Price
     {
-        public override int GetPriceCode()
+        public override MovieType GetPriceCode()
         {
-            return Movie.CHILDRENS;
+            return MovieType.Childrens;
         }
 
         public override double GetCharge(int daysRented)
@@ -14,9 +13,10 @@ namespace MovieRental
             double result = 1.5;
             if (daysRented > 3)
             {
-                result += (daysRented - 3) * 1.5;
+                result = result + ((daysRented - 3) * 1.5);
             }
             return result;
         }
+
     }
 }
