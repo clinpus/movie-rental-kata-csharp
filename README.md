@@ -10,3 +10,5 @@ C# implementation of the Movie Rental Kata. Focused on SOLID principles, Unit Te
 - [x] **Refactoring des points de fidélité** : Déplacement de la logique `frequentRenterPoints` dans `Movie.GetFrequentRenterPoints`.
 - [x] **Encapsulation** : La classe `Customer` ne contient plus de règles de gestion (Business Rules), elle ne fait plus que coordonner l'affichage.
 - [x] Validation par tests unitaires (7/7 OK).
+- [x] **Extraction des totaux** : Création de `GetTotalCharge` et `GetTotalFrequentRenterPoints` pour supprimer les accumulateurs dans la boucle principale.
+- [x] **Élimination des variables temporaires** : La méthode `Statement` est désormais purement dédiée à l'affichage (Refactoring : Replace Temp with Query).

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace MovieRental
 {
@@ -25,30 +26,52 @@ namespace MovieRental
 
         public string statement()
         {
-            double totalAmount = 0;
-            int frequentRenterPoints = 0;
             string result = "Rental Record for " + getName() + "\n";
 
             foreach (Rental each in _rentals)
             {
-                // Refactoring : Utilisation de la méthode déléguée dans Movie pour obtenir le montant.
-                // Cela élimine le switch complexe et centralise la logique tarifaire.
+                // On garde cette variable locale uniquement pour l'affichage de la ligne
                 double thisAmount = each.getMovie().GetCharge(each.getDaysRented());
-
-                // Délégation du calcul des points au film pour respecter le principe d'encapsulation.
-                frequentRenterPoints += each.getMovie().GetFrequentRenterPoints(each.getDaysRented());
 
                 // show figures for this rental
                 result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount.ToString() + "\n";
-                totalAmount += thisAmount;
             }
 
-            // add footer lines
-            result += "Amount owed is " + totalAmount.ToString() + "\n";
-            result += "You earned " + frequentRenterPoints.ToString() + " frequent renter points";
+            // add footer lines - Utilisation des nouvelles méthodes de calcul
+            result += "Amount owed is " + GetTotalCharge().ToString() + "\n";
+            result += "You earned " + GetTotalFrequentRenterPoints().ToString() + " frequent renter points";
 
             return result;
         }
+
+        // Calcule le montant total de toutes les locations du client.
+        // Cette méthode permet de supprimer la variable temporaire 'totalAmount' dans Statement.
+        private double GetTotalCharge()
+        {
+            double result = 0;
+            IEnumerator rentals = _rentals.GetEnumerator();
+            while (rentals.MoveNext())
+            {
+                Rental each = (Rental)rentals.Current;
+                result += each.getMovie().GetCharge(each.getDaysRented());
+            }
+            return result;
+        }
+
+        // Calcule le cumul des points de fidélité pour l'ensemble des locations.
+        // Isole la logique de sommation pour simplifier la méthode d'affichage.
+        private int GetTotalFrequentRenterPoints()
+        {
+            int result = 0;
+            IEnumerator rentals = _rentals.GetEnumerator();
+            while (rentals.MoveNext())
+            {
+                Rental each = (Rental)rentals.Current;
+                result += each.getMovie().GetFrequentRenterPoints(each.getDaysRented());
+            }
+            return result;
+        }
+
     }
 
 }
