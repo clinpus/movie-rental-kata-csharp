@@ -6,7 +6,7 @@ C# implementation of the Movie Rental Kata. Focused on SOLID principles, Unit Te
 ## Notes Techniques
 
 ### Infrastructure & Migration
-* **Migration de Framework** : Passage de .NET 4.5 à **.NET 4.6.2** pour assurer la compatibilité avec Visual Studio 2022.
+* **Migration de Framework** : Passage de .NET 4.5 à **.NET 4.6** pour assurer la compatibilité avec Visual Studio 2022.
 * **Optimisation Mémoire** : Utilisation de `StringBuilder` dans la méthode `Statement` pour optimiser la gestion de la mémoire (réduction des allocations du GC).
 
 ### Architecture & Design Patterns
@@ -22,4 +22,4 @@ C# implementation of the Movie Rental Kata. Focused on SOLID principles, Unit Te
 ## Validation
 
 - [x] **Tests Unitaires** : Tous les tests passent avec succès (7/7 OK).
-- [x] **Compatibilité** : Vérifiée sur la nouvelle cible .NET 4.6.2.
+- [x] **Compatibilité** : Vérifiée sur la nouvelle cible .NET 4.6
